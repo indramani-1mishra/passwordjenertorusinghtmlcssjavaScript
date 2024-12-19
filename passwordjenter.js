@@ -127,7 +127,7 @@ copybtn.addEventListener("click", ()=> {
   copyText.select();
   copyText.focus();
   document.execCommand("copy");
-  copyText.blur();
+ 
   
   audio.play().then(()=>
   alert("Password copied to clipboard!")
