@@ -82,18 +82,31 @@ let yesNoHandler;
      
     let generateButton = document.getElementById('btng');
     generateButton.addEventListener('click', () => {
-        
-        if (allCharacters === '') {
-            alert('First select the options you want to include in the password.');
-        } else {
-            // Generate the password only if characters are selected
-           // let passwordLength=9;
-           // let password = generatePassword(passwordLength);
-            let password = generatePassword(rengeOfPassword);
-            document.getElementById('display').value = password;
-            console.log(password);
-        }
-    });    
+        let audio = new Audio('click.mp3');
+    
+        // Play the first audio (click sound)
+        audio.play().then(() => {
+            // Check if no characters are selected
+            if (allCharacters === '') {
+                let secaudio = new Audio('longerror.mp3');
+                
+                // Play the second audio (error sound)
+                secaudio.play().then(() => {
+                    alert('No character selected. Please select at least one option.');
+                }).catch((error) => {
+                    console.error('Error playing error audio:', error);
+                });
+            } else {
+                // Generate password if characters are selected
+                let password = generatePassword(rengeOfPassword);
+                document.getElementById('display').value = password;
+                console.log(password);
+            }
+        }).catch((error) => {
+            console.error('Error playing click audio:', error);
+        });
+    });
+       
 
 range.addEventListener('input', (event) => {
     rengeOfPassword = event.target.value;
@@ -109,10 +122,19 @@ let copyText = document.getElementById("display");
 let copybtn= document.getElementById("copy");
 
 copybtn.addEventListener("click", ()=> {
+  let audio = new Audio('click.mp3');
+  
   copyText.select();
   copyText.focus();
   document.execCommand("copy");
-  alert("Password copied to clipboard!"+copyText.value);
+  copyText.blur();
+  
+  audio.play().then(()=>
+  alert("Password copied to clipboard!")
+  
+  ).catch((error)=>
+  console.error("Error copying password to clipboard:", error))
+  
 });
 
 // try to fecth the value of checkbox
