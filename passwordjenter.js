@@ -17,6 +17,7 @@ function generatePassword(rangeofpassword) {
     document.getElementById('display').value = password;
   });
 
+    
 
 range.addEventListener('input', (event) => {
     rengeOfPassword = event.target.value;
@@ -27,4 +28,14 @@ console.log("generate password: " + generatePassword1);
 
     }) 
 
+// function for copy the password to the clipboard
+let copyText = document.getElementById("display");
 
+let copybtn= document.getElementById("copy");
+
+copybtn.addEventListener("click", ()=> {
+  copyText.select();
+  copyText.focus();
+  document.execCommand("copy");
+  alert("Password copied to clipboard!"+copyText.value);
+});
